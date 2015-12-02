@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,8 +36,10 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Yippppppp")
-                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                builder.setTitle("Add Debt")
+                        .setView(inflater.inflate(layout.entry, null))
+                        .setPositiveButton("Save Debt", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
                             }
@@ -46,6 +49,27 @@ public class MainActivity extends AppCompatActivity
                 alertDialog.show();
 
             }
+
+
+           /* public Dialog onCreateDialog(Bundle savedInstanceState) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // Get the layout inflater
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.dialog_signin, null))
+                        // Add action buttons
+                        .setPositiveButton(R.string.signin, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                            }
+                        })
+            }*/
+
+
+
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
