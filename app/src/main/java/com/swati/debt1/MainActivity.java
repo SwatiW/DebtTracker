@@ -1,10 +1,13 @@
 package com.swati.debt1;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.app.AlertDialog;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.swati.debt1.R.*;
@@ -49,26 +53,6 @@ public class MainActivity extends AppCompatActivity
                 alertDialog.show();
 
             }
-
-
-           /* public Dialog onCreateDialog(Bundle savedInstanceState) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                // Get the layout inflater
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-
-                // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
-                builder.setView(inflater.inflate(R.layout.dialog_signin, null))
-                        // Add action buttons
-                        .setPositiveButton(R.string.signin, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                // sign in the user ...
-                            }
-                        })
-            }*/
-
-
 
         });
 
@@ -119,21 +103,32 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment fragment;
 
         if (id == R.id.debts) {
-            // Handle the camera action
+
+            fragment=new MyDebt();
+            updateFragment(fragment);
         } else if (id == R.id.owe) {
-
+            fragment=new OwesMe();
+                updateFragment(fragment);
         } else if (id == R.id.saving) {
-
-        }  else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            fragment=new Savings();
+               updateFragment(fragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void updateFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content, fragment)
+                .commit();
+
+    }
+
+
 }
