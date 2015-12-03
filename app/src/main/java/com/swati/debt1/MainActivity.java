@@ -18,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +30,16 @@ import static com.swati.debt1.R.layout.*;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    DB db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
         Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
+        db=new DB(this);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,19 +48,16 @@ public class MainActivity extends AppCompatActivity
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 LayoutInflater inflater = MainActivity.this.getLayoutInflater();
-                builder.setTitle("Add Debt")
+                builder.setTitle("Add Entry")
                         .setView(inflater.inflate(layout.entry, null))
-                        .setPositiveButton("Save Debt", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
+                                saving();
                             }
                         });
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             }
-
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
@@ -64,6 +68,34 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void saving() {
+        TextView person_name=(TextView)findViewById(id.person_name);
+        TextView money=(TextView)findViewById(id.money);
+         EditText name=(EditText)findViewById(id.name);
+        EditText money_lend=(EditText)findViewById(id.money_lend);
+         final String per_name=name.getText().toString();
+        final int mon_lend=Integer.parseInt(money_lend.getText().toString());
+        RadioGroup group=(RadioGroup)findViewById(id.group);
+        RadioButton seldebt=(RadioButton)findViewById(id.bdebt);
+        RadioButton selowe=(RadioButton)findViewById(id.bowe);
+        RadioButton selsav=(RadioButton)findViewById(id.bsav);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+             @Override
+                 public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == id.bdebt) {
+                    db.insertEntry("debt",per_name,mon_lend,0,0);
+                } else if(checkedId == id.bowe) {
+                    db.insertEntry("owe",per_name,mon_lend,0,0);
+                } else if(checkedId==id.bsav){
+                    db.insertEntry("saving",per_name,mon_lend,0,0);
+                }
+             }
+
+        });
+
+
     }
 
     @Override

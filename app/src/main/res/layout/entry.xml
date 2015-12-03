@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
+<RadioGroup
+    android:id="@+id/group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RadioButton
+        android:id="@+id/bdebt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Debt"
+        android:layout_marginTop="10dp" />
+
+</RadioGroup>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name of the person"
         android:id="@+id/person_name"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/group"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="30dp" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -26,10 +38,10 @@
         android:layout_height="wrap_content"
         android:text="Money"
         android:id="@+id/money"
-        android:layout_below="@+id/name"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/person_name" />
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -39,4 +51,22 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
+
+    <RadioButton
+        android:id="@+id/bowe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Owe"
+
+        android:layout_above="@+id/person_name"
+        android:layout_toStartOf="@+id/bsav" />
+
+    <RadioButton
+        android:id="@+id/bsav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saving"
+        android:layout_marginStart="69dp"
+        android:layout_above="@+id/person_name"
+        android:layout_toEndOf="@+id/person_name" />
 </RelativeLayout>
